@@ -9,17 +9,30 @@ import CustomDrawer from "../menu";
 export default function Header() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar
+        position="static"
+        sx={{
+          backgroundColor: "#1E88E5",
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+        }}
+      >
         <Toolbar>
-          <CustomDrawer />
+          <CustomDrawer></CustomDrawer>
+
           <Typography
             variant="h6"
             noWrap
             component="div"
+            sx={{
+              fontWeight: "bold",
+              flexGrow: 1,
+              color: "#FFF",
+              textAlign: "center",
+              letterSpacing: "1px",
+            }}
           >
             G SCORES
           </Typography>
-          <Box sx={{ flexGrow: 1 }} />
         </Toolbar>
       </AppBar>
     </Box>

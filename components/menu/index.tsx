@@ -1,15 +1,26 @@
 import * as React from "react";
-import { List, Drawer, Divider, IconButton, useMediaQuery, Theme } from "@mui/material";
+import {
+  List,
+  Drawer,
+  Divider,
+  IconButton,
+  useMediaQuery,
+  Theme,
+} from "@mui/material";
 import { Menu as MenuIcon } from "@mui/icons-material";
 
 import { MenuHolder } from "./styled-components";
-import { generateMenuItems } from "../helpers/generate-menu-items";
+import { generateMenuItems } from "../../helpers/generate-menu-items";
 
 export default function MenuDrawer() {
   const [state, setState] = React.useState(false);
 
-  const isSmallScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down("sm"));
-  const isMediumScreen = useMediaQuery((theme: Theme) => theme.breakpoints.between("sm", "md"));
+  const isSmallScreen = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down("sm"),
+  );
+  const isMediumScreen = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.between("sm", "md"),
+  );
 
   const toggleDrawer = (open: boolean) => () => {
     setState(open);

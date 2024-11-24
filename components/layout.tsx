@@ -14,13 +14,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <SnackbarProvider maxSnack={3} autoHideDuration={2000}>
-        <IntlProvider
-          locale={locale || "vi"}
-          messages={messages[locale || "vi"] as Record<string, string>}
-        >
-          <Header />
-          <ContentWrapper>{children}</ContentWrapper>
-        </IntlProvider>
+      <IntlProvider
+        locale={locale || "vi"}
+        messages={messages[locale || "vi"] as Record<string, string>}
+      >
+        <Header />
+        <ContentWrapper>{children}</ContentWrapper>
+      </IntlProvider>
     </SnackbarProvider>
   );
 }
