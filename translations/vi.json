@@ -1,0 +1,10 @@
+{
+  "403_error_message": "Người dùng không có quyền truy cập vào trang này",
+  "404_error_message": "Không tìm thấy",
+  "500_error_message": "Hệ thống đã xảy ra lỗi",
+  "menu_dashboard": "Dashboard",
+  "menu_search": "Search Scores",
+  "menu_report": "Reports",
+  "menu_setting": "Settings",
+  "user_registration": "User Registation"
+}
