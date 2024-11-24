@@ -1,4 +1,3 @@
-/* istanbul ignore file */
 import React from "react";
 import type { AppProps } from "next/app";
 import { createTheme, ThemeProvider } from "@mui/material";

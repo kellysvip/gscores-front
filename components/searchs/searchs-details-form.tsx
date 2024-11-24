@@ -4,40 +4,44 @@ import { debounce } from "@mui/material/utils";
 
 import { FlexStartColumn, InputWrapper } from "../styled-components";
 import { SearchInput } from "../search-input";
-import { getRequest } from "../helpers/api-requests";
+import { getByIdRequest } from "../../helpers/api-requests";
 import { Student } from "../constants/types/student.type";
 
 export const SEARCH_DELAY_MS = 400;
 
 const languageMap = {
-  N1: 'English',
-  N2: 'Russian',
-  N3: 'French',
-  N4: 'Chinese',
-  N5: 'German',
-  N6: 'Japanese',
-  N7: 'Korean'
+  N1: "English",
+  N2: "Russian",
+  N3: "French",
+  N4: "Chinese",
+  N5: "German",
+  N6: "Japanese",
+  N7: "Korean",
 };
 
 export default function SearchDetailsForm() {
   const [search, setSearch] = useState<string | undefined>(undefined);
   const [student, setStudent] = useState<Student>();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleSearchTextChange = debounce(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setSearch(event.target.value || undefined);
     },
-    SEARCH_DELAY_MS
+    SEARCH_DELAY_MS,
   );
 
   const setUpData = () => {
-    getRequest(`/students/${search}`)
+    setLoading(true);
+
+    getByIdRequest(`/students/${search}`)
       .then((student) => {
-        console.log(search, student);
         setStudent(student);
+        setLoading(false);
       })
       .catch(() => {
         setStudent(undefined);
+        setLoading(false);
       });
   };
 
@@ -50,12 +54,20 @@ export default function SearchDetailsForm() {
 
   return (
     <FlexStartColumn>
-      <Card sx={{ minWidth: isMobile ? 300 : isTablet ? 400 : 500, padding: isMobile ? 2 : 4 }}>
+      <Card
+        sx={{
+          minWidth: isMobile ? 300 : isTablet ? 400 : 500,
+          padding: isMobile ? 2 : 4,
+        }}
+      >
         <CardContent>
           <form>
             <InputWrapper>
               <FlexStartColumn>
-                <Typography variant={isMobile ? "h5" : "h4"} sx={{ fontWeight: "bold" }}>
+                <Typography
+                  variant={isMobile ? "h5" : "h4"}
+                  sx={{ fontWeight: "bold" }}
+                >
                   User Registration
                 </Typography>
                 <Typography> Registration number: </Typography>
@@ -67,12 +79,26 @@ export default function SearchDetailsForm() {
         </CardContent>
       </Card>
 
-      <Card sx={{ minWidth: isMobile ? 300 : isTablet ? 400 : 500, marginTop: 3, padding: isMobile ? 2 : 4 }}>
+      <Card
+        sx={{
+          minWidth: isMobile ? 300 : isTablet ? 400 : 500,
+          marginTop: 3,
+          padding: isMobile ? 2 : 4,
+        }}
+      >
         <CardContent>
           {!student ? (
-            <Typography sx={{ fontWeight: "bold" }}>
-              Cannot find this student's registration number
-            </Typography>
+            <>
+              {loading ? (
+                <Typography sx={{ fontWeight: "bold" }}>
+                  Finding this student's registration number...
+                </Typography>
+              ) : (
+                <Typography sx={{ fontWeight: "bold" }}>
+                  Cannot find this student's registration number
+                </Typography>
+              )}
+            </>
           ) : (
             <>
               {student.id && (
@@ -122,7 +148,12 @@ export default function SearchDetailsForm() {
               )}
               {student.foreignLanguage && (
                 <Typography sx={{ fontWeight: "bold" }}>
-                  {languageMap[student.foreignLanguageCode as keyof typeof languageMap]}: {student.foreignLanguage}
+                  {
+                    languageMap[
+                      student.foreignLanguageCode as keyof typeof languageMap
+                    ]
+                  }
+                  : {student.foreignLanguage}
                 </Typography>
               )}
             </>

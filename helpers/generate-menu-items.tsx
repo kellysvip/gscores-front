@@ -6,10 +6,10 @@ import {
 } from "@mui/icons-material";
 import * as React from "react";
 
-import { NestedMenuItem } from "../menu/nested-menu-item";
+import { NestedMenuItem } from "../components/menu/nested-menu-item";
 
 export function generateMenuItems(
-  toggleDrawer: (open: boolean) => () => void
+  toggleDrawer: (open: boolean) => () => void,
 ): React.ReactNode[] {
   return [
     <NestedMenuItem
